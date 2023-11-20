@@ -15,4 +15,9 @@ class Appointment extends Model
         'symptoms',
         'user_id'
     ];
+    // Si hay una relación con User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -1,0 +1,15 @@
+<!-- delete-confirmation-modal.component.html -->
+
+<div class="modal-header">
+    <h4 class="modal-title">Confirmación de Eliminación</h4>
+    <button type="button" class="close" (click)="dismiss('cancel')">
+        <span>&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <p>¿Estás seguro de que deseas eliminar esta cita?</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="dismiss('cancel')">Cancelar</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Eliminar</button>
+</div>

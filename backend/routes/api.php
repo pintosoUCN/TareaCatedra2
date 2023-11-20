@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,10 @@ Route::post('appointments',[\App\Http\Controllers\AppointmentController::class,'
 Route::delete('appointments/{appointment}',[\App\Http\Controllers\AppointmentController::class,'destroy']);
 Route::get('appointments/{appointment}',[\App\Http\Controllers\AppointmentController::class,'show']);
 Route::put('appointments/{appointment}',[\App\Http\Controllers\AppointmentController::class,'update']);
+
+Route::get('users', [UserController::class, 'index']);
+Route::post('users', [UserController::class, 'store']);
+Route::delete('users/{user}', [UserController::class, 'destroy']);
+Route::get('users/{user}', [UserController::class, 'show']);
+Route::put('users/{user}', [UserController::class, 'update']);
+
