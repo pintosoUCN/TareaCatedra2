@@ -21,12 +21,9 @@
         <tr class="fw-bolder text-muted">
 
           <th class="min-w-150px">Nombre Paciente</th>
-          <th class="min-w-140px">Email</th>
-          <th class="min-w-140px">Teléfono</th>
-          <th class="min-w-120px">Dueño</th>
           <th class="min-w-120px">Fecha</th>
           <th class="min-w-120px">Síntomas</th>
-          <th class="min-w-100px text-end">Actions</th>
+          <th class="min-w-100px text-end">Acciones</th>
         </tr>
       </thead>
       <!-- end::Table head -->
@@ -45,24 +42,6 @@
           </td>
           <td>
             <span class="text-dark fw-bolder text-hover-primary d-block fs-6">
-              {{appointment.email}}
-            </span>
-            
-          </td>
-          <td>
-            <span class="text-dark fw-bolder text-hover-primary d-block fs-6">
-              {{appointment.phone}}
-            </span>
-            
-          </td>
-          <td>
-            <span class="text-dark fw-bolder text-hover-primary d-block fs-6">
-              {{appointment.user?.name}}
-            </span>
-
-          </td>
-          <td>
-            <span class="text-dark fw-bolder text-hover-primary d-block fs-6">
               {{appointment.date | date: 'dd/MM/yyyy'}}
 
             </span>
@@ -71,7 +50,7 @@
           <td class="text-end">
             <div class="d-flex flex-column w-100 me-2">
               <span class="text-dark fw-bolder text-hover-primary d-block fs-6">
-                {{appointment.symptom}}
+                {{appointment.symptoms}}
               </span>
             </div>
           </td>
@@ -81,7 +60,7 @@
               <span class="
                     btn btn-icon btn-bg-light btn-active-color-primary btn-sm
                     me-1
-                  ">
+                  "(click)="openEditModal(appointment)">
                 <app-keenicon name="pencil" class="fs-3"></app-keenicon>
               </span>
               <span class="

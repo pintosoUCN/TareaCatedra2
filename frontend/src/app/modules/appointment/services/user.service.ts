@@ -26,6 +26,12 @@ getAll(): Observable<UserInteface[]>{
   )
 }
 
+getUserById(userId: number): Observable<UserInteface> {
+  return this.httpClient.get<UserInteface>(`${environment.API_URL_APPOINTMENTS}users/${userId}`).pipe(
+    catchError(this.handleError)
+  );
+}
+
 private handleError(error: HttpErrorResponse) {
   if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.

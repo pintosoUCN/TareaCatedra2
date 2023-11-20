@@ -2,16 +2,12 @@
     <form novalidate="" class="form" [formGroup]="validateForm" (ngSubmit)="save(validateForm.value)">
         <div class="card-body p-2">
             <div class="row mb-6">
-                <label class="col-lg-4 col-form-label required fw-bold fs-6">Nombre paciente</label>
-                <div class="col-lg-8">
-                    <div class="row">
-                        <div class="col-lg-6 fv-row">
-                            <input type="text" formControlName="name" class="
-                      form-control form-control-lg form-control-solid
-                      mb-3 mb-lg-0
-                    " placeholder="Nombre Paciente" name="fName" />
-                        </div>
-                    </div>
+                <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">Nombre paciente</span></label>
+                <div class="col-lg-8 fv-row">
+                    <select class="form-select form-select-solid form-select-lg fw-bold" formControlName="name" >
+                        <option  value="">Seleccionar el paciente...</option>
+                        <option *ngFor="let user of users | async" [value]="user.id" >{{user.name}}</option>
+                    </select>
                 </div>
             </div>
             <div class="row mb-6">
@@ -22,29 +18,12 @@
                 </div>
             </div>
             <div class="row mb-6">
-                <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">Teléfono</span></label>
-                <div class="col-lg-8 fv-row">
-                    <input type="text" formControlName="phone"  class="form-control form-control-lg form-control-solid" placeholder="Teléfono"
-                        name="phone" />
-                </div>
-            </div>
-            <div class="row mb-6">
                 <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">Síntomas</span>
                 </label>
                 <div class="col-lg-8 fv-row">
-                    <textarea #messageInput formControlName="symptom"  class="form-control form-control-lg form-control-solid mb-3" rows="3"
-                        name="symptom" data-kt-element="input" placeholder="Ingrese los síntomas del paciente">
+                    <textarea #messageInput formControlName="symptoms"  class="form-control form-control-lg form-control-solid mb-3" rows="3"
+                        name="symptoms" data-kt-element="input" placeholder="Ingrese los síntomas del paciente">
                         </textarea>
-                </div>
-            </div>
-            <div class="row mb-6">
-                <label class="col-lg-4 col-form-label fw-bold fs-6"><span class="required">Dueño</span></label>
-                <div class="col-lg-8 fv-row">
-                    <select class="form-select form-select-solid form-select-lg fw-bold" formControlName="owner"  name="owner"  >
-                        <option  value="">Seleccionar el dueño...</option>
-                        <option *ngFor="let user of users | async" [value]="user.id" >{{user.name}}</option>
-                    </select>
-                 
                 </div>
             </div>
 

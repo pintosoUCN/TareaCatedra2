@@ -32,11 +32,8 @@ export class AppointmentFormComponent implements OnInit, OnDestroy {
 
     this.validateForm = this.fb.group({
       name: new FormControl(null, [Validators.required]),
-      owner: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      phone: new FormControl(null, [Validators.required]),
-      date: new FormControl(null, [Validators.required]),
-      symptom: new FormControl(null, [Validators.required]),
+      symptoms: new FormControl(null, [Validators.required]),
     });
  
   }
@@ -58,16 +55,45 @@ export class AppointmentFormComponent implements OnInit, OnDestroy {
     }, 1500);
   }
 
-  save(appointment:Appointment){
-    this.appointmentService.create(appointment).subscribe(res=>{
-      for (const key in this.validateForm.controls) {
-        if (this.validateForm.controls.hasOwnProperty(key)) {
-          this.validateForm.controls[key].markAsDirty();
-          this.validateForm.controls[key].updateValueAndValidity();
+  save(appointment: Appointment) {
+    const numericValue: number = parseInt(appointment.name, 10);
+    // En base al id del usuario poner el nombre del usuario
+    this.userService.getUserById(numericValue).subscribe(
+      (user) => {
+        // Asignar el nombre del usuario al appointment
+        appointment.user_id = user.id;
+        appointment.name = user.name;
+        appointment.user = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        };
+      console.log(appointment.name);
+      console.log(appointment.user_id);
+    // Obtener la fecha actual
+    const currentDate = new Date();
+    appointment.user_id = numericValue;
+    appointment.date = currentDate.toISOString();
+   
+    // Luego, llama al servicio para crear el appointment
+    this.appointmentService.create(appointment).subscribe(
+      (res) => {
+        // Marcar los campos como dirty después de guardar exitosamente
+        for (const key in this.validateForm.controls) {
+          if (this.validateForm.controls.hasOwnProperty(key)) {
+            this.validateForm.controls[key].markAsDirty();
+            this.validateForm.controls[key].updateValueAndValidity();
+          }
         }
+        // Emitir evento para cerrar el modal y actualizar la lista
+        this.closeModalAndRefreshList.emit(true);
+      },
+      (error) => {
+        console.error('Error al guardar el appointment', error);
+        // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje al usuario
       }
-      this.closeModalAndRefreshList.emit(true);
-    })
+    );
+  });
   }
 
   resetForm(e: MouseEvent): void {
